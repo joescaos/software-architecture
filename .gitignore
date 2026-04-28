@@ -1,0 +1,148 @@
+# ================================
+#  Go específico
+# ================================
+
+# Binarios compilados (ejecutables)
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+
+# Archivos de salida de pruebas de rendimiento (benchmark)
+*.bench
+
+# Archivos de cobertura de pruebas
+*.out
+*.cov
+coverage.html
+
+# Archivos de profiling (pprof)
+*.prof
+*.cpu
+*.mem
+
+# Directorio vendor (solo si usas vendor; si usas go modules, no lo necesitas)
+/vendor/
+
+# Archivos de dependencias (go.sum SÍ debe estar versionado)
+# go.sum NO se ignora, es importante para la integridad de módulos.
+
+# Si usas Go workspaces
+go.work
+go.work.sum
+
+# ================================
+#  Archivos de entorno / configuración
+# ================================
+
+# Variables de entorno locales (con datos sensibles)
+.env
+.env.local
+.env.*.local
+
+# Pero sí puedes commitear un ejemplo
+# .env.example  <- este SÍ se sube al repo
+
+# Archivos de configuración con secretos
+*.key
+*.pem
+*.crt
+
+# ================================
+#  IDEs y editores
+# ================================
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# IntelliJ / GoLand
+.idea/
+*.iml
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ================================
+#  Sistema operativo
+# ================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux (algunos gestores de archivos)
+.directory
+
+# ================================
+#  Docker
+# ================================
+
+# Directorios generados por Docker (si montas volúmenes locales)
+# No suelen subirse, pero depende de tu docker-compose.
+# Ejemplo: volúmenes anónimos montados en ./data
+/data/
+/postgres-data/
+
+# Archivos de logs de contenedores (si se redirigen a archivos)
+*.log
+
+# ================================
+#  Herramientas de build / testing
+# ================================
+
+# Archivos de dependencias específicas (por si usas glide, dep, etc.)
+/Godeps/
+/glide.lock   # con go modules ya no se usa
+
+# Resultados de linters (golangci-lint)
+golangci-lint.report
+
+# Herramienta de migraciones (archivos generados)
+*.db
+*.sqlite
+*.sqlite3
+
+# ================================
+#  Aplicación / temporales
+# ================================
+
+# Ejecutable generado por build local (por ejemplo, product-api)
+/product-api
+/app
+
+# Archivos temporales de Go
+/go.sum   # NUNCA ignores go.sum, es importante
+# (de hecho lo dejamos explícitamente para no añadirlo por error)
+
+# ================================
+#  Excepciones: archivos que SÍ se versionan
+# ================================
+
+# .gitignore propio (no tiene sentido ignorarlo, pero a veces se hace)
+!.gitignore
+
+# .dockerignore (si lo creas, debe estar versionado)
+!.dockerignore
+
+# Archivo de ejemplo de entorno
+!.env.example
+
+# Carpeta bin (si quieres incluir scripts auxiliares)
+!bin/*.sh
