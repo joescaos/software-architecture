@@ -12,6 +12,7 @@ import (
 	"gorm.io/gorm"
 
 	"software-architecture/internal/adapters/api"
+	graphqladapter "software-architecture/internal/adapters/graphql"
 	"software-architecture/internal/adapters/repository"
 	"software-architecture/internal/core/services"
 )
@@ -46,6 +47,7 @@ func main() {
 	// Router setup
 	router := gin.Default()
 	api.RegisterRoutes(router, productHandler)
+	graphqladapter.RegisterRoutes(router, productService)
 
 	// Start server
 	port := os.Getenv("PORT")

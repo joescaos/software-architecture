@@ -1,0 +1,180 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-graphql-products",
+    "name": "GraphQL Products API",
+    "description": "Queries y mutations contra el servidor GraphQL del proyecto (POST /graphql). Ajusta la variable `base_url` si tu API no está en localhost:8080.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "Query — products (paginado)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query Products($page: Int, $pageSize: Int) {\n  products(page: $page, pageSize: $pageSize) {\n    page\n    pageSize\n    total\n    totalPages\n    data {\n      id\n      name\n      description\n      price\n    }\n  }\n}",
+            "variables": "{\n  \"page\": 1,\n  \"pageSize\": 10\n}"
+          }
+        },
+        "url": "{{base_url}}/graphql",
+        "description": "Lista productos con paginación."
+      }
+    },
+    {
+      "name": "Query — product por id",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query Product($id: ID!) {\n  product(id: $id) {\n    id\n    name\n    description\n    price\n  }\n}",
+            "variables": "{\n  \"id\": \"1\"\n}"
+          }
+        },
+        "url": "{{base_url}}/graphql",
+        "description": "Obtiene un producto. Cambia \"id\" en variables."
+      }
+    },
+    {
+      "name": "Query — product (sin variables, id fijo en query)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query {\n  product(id: \"1\") {\n    id\n    name\n    description\n    price\n  }\n}",
+            "variables": ""
+          }
+        },
+        "url": "{{base_url}}/graphql"
+      }
+    },
+    {
+      "name": "Mutation — createProduct",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation CreateProduct($input: CreateProductInput!) {\n  createProduct(input: $input) {\n    id\n    name\n    description\n    price\n  }\n}",
+            "variables": "{\n  \"input\": {\n    \"name\": \"Teclado mecánico\",\n    \"description\": \"Switches rojos, layout ES\",\n    \"price\": 89.5\n  }\n}"
+          }
+        },
+        "url": "{{base_url}}/graphql"
+      }
+    },
+    {
+      "name": "Mutation — createProduct (sin descripción)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation {\n  createProduct(\n    input: { name: \"Mouse\", price: 25.0 }\n  ) {\n    id\n    name\n    price\n  }\n}",
+            "variables": ""
+          }
+        },
+        "url": "{{base_url}}/graphql"
+      }
+    },
+    {
+      "name": "Mutation — updateProduct",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation UpdateProduct($id: ID!, $input: UpdateProductInput!) {\n  updateProduct(id: $id, input: $input) {\n    id\n    name\n    description\n    price\n  }\n}",
+            "variables": "{\n  \"id\": \"1\",\n  \"input\": {\n    \"name\": \"Teclado mecánico Pro\",\n    \"price\": 99.0\n  }\n}"
+          }
+        },
+        "url": "{{base_url}}/graphql",
+        "description": "Actualización parcial: solo envía en input los campos que quieras cambiar."
+      }
+    },
+    {
+      "name": "Mutation — deleteProduct",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation DeleteProduct($id: ID!) {\n  deleteProduct(id: $id)\n}",
+            "variables": "{\n  \"id\": \"1\"\n}"
+          }
+        },
+        "url": "{{base_url}}/graphql"
+      }
+    },
+    {
+      "name": "Query — introspection (tipos disponibles)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query IntrospectionTypes {\n  __schema {\n    types {\n      name\n      kind\n    }\n  }\n}",
+            "variables": ""
+          }
+        },
+        "url": "{{base_url}}/graphql",
+        "description": "Útil para explorar el esquema (requiere introspection habilitada en el servidor)."
+      }
+    }
+  ]
+}
